@@ -147,13 +147,40 @@ Before deploying to production, update `application.properties`:
 
 ## 📷 Application Screenshots
 
-EcoTrace features a premium, modern UI with a responsive design that works beautifully on both desktop and mobile viewports. Key screens include:
+EcoTrace features a premium, modern UI with a responsive design that works beautifully on both desktop and mobile viewports.
 
-- **Login & Registration** — Glassmorphic auth forms with animated banner
-- **Dashboard** — Real-time carbon stats, category breakdown charts, daily trends
-- **Log Activity** — Quick-action cards for transport, food, energy, and waste
-- **Eco Challenges** — Join challenges, track progress, earn carbon offsets
-- **Leaderboard** — Community rankings with friend comparisons
-- **Insights** — AI-powered analytics with personalized recommendations
-- **Account Settings** — Profile management, password updates, theme toggle
+### 🎬 Video Walkthroughs
+
+| Desktop Walkthrough | Mobile Walkthrough |
+|---|---|
+| [▶ Watch Desktop Demo (1280×800)](docs/videos/ecotrace_desktop_walkthrough.webm) | [▶ Watch Mobile Demo (iPhone SE)](docs/videos/ecotrace_mobile_walkthrough.webm) |
+
+### Desktop Views
+
+#### Login & Registration
+| Login | Register | Register (Filled) | Terms & Conditions |
+|---|---|---|---|
+| ![Login](docs/screenshots/flow_1_login.png) | ![Register](docs/screenshots/flow_2_register.png) | ![Register Filled](docs/screenshots/flow_2_register_filled.png) | ![T&C Modal](docs/screenshots/flow_2_tc_modal.png) |
+
+#### Dashboard & Activity Logging
+| Empty Dashboard | Log Activity | Activity Filled | Dashboard with Data |
+|---|---|---|---|
+| ![Empty Dashboard](docs/screenshots/flow_3_dashboard_empty.png) | ![Log Activity](docs/screenshots/flow_4_log_activity_modal.png) | ![Activity Filled](docs/screenshots/flow_4_log_activity_filled.png) | ![Dashboard](docs/screenshots/flow_5_dashboard_with_activity.png) |
+
+#### History, Challenges & Goals
+| Log History | Challenges | Challenges Committed | Carbon Budgets |
+|---|---|---|---|
+| ![History](docs/screenshots/flow_6_log_history.png) | ![Challenges](docs/screenshots/flow_7_challenges.png) | ![Committed](docs/screenshots/flow_8_challenges_committed.png) | ![Budgets](docs/screenshots/flow_9_budgets.png) |
+
+#### Budgets, Community & Settings
+| Budgets Set | Community Leaderboard | Profile Settings | Dark Mode |
+|---|---|---|---|
+| ![Budgets Set](docs/screenshots/flow_10_budgets_set.png) | ![Community](docs/screenshots/flow_11_community.png) | ![Settings](docs/screenshots/flow_12_profile_settings.png) | ![Dark Mode](docs/screenshots/flow_13_dark_mode_dashboard.png) |
+
+### Mobile Views
+
+| Login | Dashboard | Sidebar Open | Sidebar Closed |
+|---|---|---|---|
+| ![Mobile Login](docs/screenshots/flow_mobile_1_login.png) | ![Mobile Dashboard](docs/screenshots/flow_mobile_2_dashboard.png) | ![Sidebar Open](docs/screenshots/flow_mobile_3_sidebar_open.png) | ![Sidebar Closed](docs/screenshots/flow_mobile_4_sidebar_closed.png) |
+
 
