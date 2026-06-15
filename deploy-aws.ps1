@@ -80,7 +80,7 @@ while ($true) {
 
 # Retrieve Endpoint URL
 $dbHost = $(aws rds describe-db-instances --db-instance-identifier $dbIdentifier --region $region --query "DBInstances[0].Endpoint.Address" --output text --no-cli-pager).Trim()
-$dbUrl = "jdbc:postgresql://$dbHost:5432/postgres"
+$dbUrl = "jdbc:postgresql://${dbHost}:5432/postgres"
 Write-Host "Database is available at: $dbHost" -ForegroundColor Green
 
 # 4. Save credentials to Secrets Manager
