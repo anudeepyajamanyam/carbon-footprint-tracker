@@ -114,9 +114,9 @@ $secretPayload = @{
     JWT_SECRET = $jwtSecret
 } | ConvertTo-Json
 
-# Write to temporary file to avoid PowerShell quote-stripping issues
+# Write to temporary file using UTF-8 without BOM to avoid JSON parsing issues in Java
 $secretFile = "secret-payload-temp.json"
-$secretPayload | Out-File -FilePath $secretFile -Encoding utf8
+[System.IO.File]::WriteAllText((Resolve-Path .).Path + "/" + $secretFile, $secretPayload, (New-Object System.Text.UTF8Encoding($false)))
 
 try {
     if (-not $secretExists) {

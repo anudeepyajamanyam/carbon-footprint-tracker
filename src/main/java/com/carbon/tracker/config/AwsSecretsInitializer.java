@@ -38,6 +38,9 @@ public class AwsSecretsInitializer implements ApplicationContextInitializer<Conf
 
             GetSecretValueResponse getSecretValueResponse = client.getSecretValue(getSecretValueRequest);
             String secretString = getSecretValueResponse.secretString();
+            if (secretString != null && secretString.startsWith("\uFEFF")) {
+                secretString = secretString.substring(1);
+            }
 
             @SuppressWarnings("unchecked")
             Map<String, Object> secrets = new ObjectMapper().readValue(secretString, HashMap.class);
