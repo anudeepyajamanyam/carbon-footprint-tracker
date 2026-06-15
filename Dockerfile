@@ -1,5 +1,5 @@
 # ================================================================
-# EcoTrace — Multi-stage Docker Build
+# BiomeTrck — Multi-stage Docker Build
 # Stage 1: Build the JAR with Maven
 # Stage 2: Run with a minimal JRE image
 # ================================================================
