@@ -98,10 +98,62 @@ The tests verify:
 
 ---
 
-## 📷 Visual Flow Walkthroughs
+## 🚀 Deployment
 
-For a detailed visual guide of all user interface screens and steps (both Desktop and Mobile layouts), please refer to the comprehensive [Flow Documentation](file:///C:/Users/anude/.gemini/antigravity-ide/brain/6c2b7732-afa3-4429-a81d-cbdac244f2cd/flows_documentation.md) artifact, which includes sequential step-by-step screenshots and embeds for the following automated walkthrough video recordings:
+### Quick Deploy with Railway (Recommended for Hackathons)
 
-- 🎬 [Desktop Video Walkthrough (1280x800)](file:///C:/Users/anude/.gemini/antigravity-ide/brain/6c2b7732-afa3-4429-a81d-cbdac244f2cd/ecotrace_desktop_walkthrough.webm)
-- 🎬 [Mobile Video Walkthrough (iPhone SE)](file:///C:/Users/anude/.gemini/antigravity-ide/brain/6c2b7732-afa3-4429-a81d-cbdac244f2cd/ecotrace_mobile_walkthrough.webm)
+1. Push this repo to GitHub
+2. Go to [railway.app](https://railway.app) → Sign in with GitHub
+3. **New Project** → **Deploy from GitHub repo** → Select this repo
+4. Railway auto-detects Maven and deploys. Set env vars:
+   - `PORT` = `8080`
+   - `JAVA_VERSION` = `21`
+5. Get your public URL instantly!
+
+### Deploy with Docker
+
+A production-ready `Dockerfile` is included:
+
+```bash
+# Build the image
+docker build -t ecotrace .
+
+# Run the container
+docker run -d -p 8080:8080 --name ecotrace ecotrace
+```
+
+### Deploy to Any Cloud VM
+
+```bash
+# 1. Build the JAR
+mvn clean package -DskipTests
+
+# 2. Transfer to server
+scp target/carbon-footprint-tracker-1.0.0.jar user@server:/opt/ecotrace/
+
+# 3. Run on server (requires JDK 21)
+java -jar carbon-footprint-tracker-1.0.0.jar
+```
+
+### ⚠️ Production Checklist
+
+Before deploying to production, update `application.properties`:
+- [ ] Generate a new JWT secret: `openssl rand -hex 32`
+- [ ] Disable H2 Console: `spring.h2.console.enabled=false`
+- [ ] Change the database password
+- [ ] (Optional) Switch from H2 to PostgreSQL for persistent storage
+
+---
+
+## 📷 Application Screenshots
+
+EcoTrace features a premium, modern UI with a responsive design that works beautifully on both desktop and mobile viewports. Key screens include:
+
+- **Login & Registration** — Glassmorphic auth forms with animated banner
+- **Dashboard** — Real-time carbon stats, category breakdown charts, daily trends
+- **Log Activity** — Quick-action cards for transport, food, energy, and waste
+- **Eco Challenges** — Join challenges, track progress, earn carbon offsets
+- **Leaderboard** — Community rankings with friend comparisons
+- **Insights** — AI-powered analytics with personalized recommendations
+- **Account Settings** — Profile management, password updates, theme toggle
 
