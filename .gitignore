@@ -1,0 +1,36 @@
+# === Maven Build ===
+target/
+
+# === IDE ===
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+
+# === H2 Database files ===
+data/*.db
+data/*.lock.db
+data/*.trace.db
+
+# === OS Files ===
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# === Logs ===
+*.log
+logs/
+
+# === Java ===
+*.class
+*.jar
+*.war
+*.ear
+
+# === Environment ===
+.env
+*.env
