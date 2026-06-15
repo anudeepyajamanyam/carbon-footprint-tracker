@@ -1,12 +1,12 @@
-# EcoTrace — Interactive Carbon Footprint Tracker 🌿
+# BiomeTrck — Interactive Carbon Footprint Tracker 🌿
 
-EcoTrace is a premium, state-of-the-art interactive carbon footprint tracker. It helps users trace daily emissions across transport, food, energy, and waste, commit to eco-challenges to earn carbon offsets, and participate in community leaderboards to challenge friends.
+BiomeTrck is a premium, state-of-the-art interactive carbon footprint tracker. It helps users trace daily emissions across transport, food, energy, and waste, commit to eco-challenges to earn carbon offsets, and participate in community leaderboards to challenge friends.
 
 ---
 
 ## 🏗️ Project Architecture
 
-EcoTrace is built on a modern, robust, and lightweight technology stack:
+BiomeTrck is built on a modern, robust, and lightweight technology stack:
 - **Backend**: Spring Boot 3.2.5 (Java 21)
 - **Database**: H2 Database (File-based storage for persistence across restarts)
 - **ORM & Data Access**: Spring Data JPA / Hibernate
@@ -116,10 +116,10 @@ A production-ready `Dockerfile` is included:
 
 ```bash
 # Build the image
-docker build -t ecotrace .
+docker build -t biometrck .
 
 # Run the container
-docker run -d -p 8080:8080 --name ecotrace ecotrace
+docker run -d -p 8080:8080 --name biometrck biometrck
 ```
 
 ### Deploy to Any Cloud VM
@@ -129,7 +129,7 @@ docker run -d -p 8080:8080 --name ecotrace ecotrace
 mvn clean package -DskipTests
 
 # 2. Transfer to server
-scp target/carbon-footprint-tracker-1.0.0.jar user@server:/opt/ecotrace/
+scp target/carbon-footprint-tracker-1.0.0.jar user@server:/opt/biometrck/
 
 # 3. Run on server (requires JDK 21)
 java -jar carbon-footprint-tracker-1.0.0.jar
@@ -147,13 +147,13 @@ Before deploying to production, update `application.properties`:
 
 ## 📷 Application Screenshots
 
-EcoTrace features a premium, modern UI with a responsive design that works beautifully on both desktop and mobile viewports.
+BiomeTrck features a premium, modern UI with a responsive design. The entry point of the application is a public marketing landing page (`/`) featuring a dynamic, animated CO₂ counter and product highlights. Users access the application via separate standalone login (`/login`) and registration (`/register`) pages, which redirect authenticated sessions to the secured insights dashboard (`/dashboard`).
 
 ### 🎬 Video Walkthroughs
 
 | Desktop Walkthrough | Mobile Walkthrough |
 |---|---|
-| [▶ Watch Desktop Demo (1280×800)](docs/videos/ecotrace_desktop_walkthrough.webm) | [▶ Watch Mobile Demo (iPhone SE)](docs/videos/ecotrace_mobile_walkthrough.webm) |
+| [▶ Watch Desktop Demo (1280×800)](docs/videos/biometrck_desktop_walkthrough.webm) | [▶ Watch Mobile Demo (iPhone SE)](docs/videos/biometrck_mobile_walkthrough.webm) |
 
 ### Desktop Views
 

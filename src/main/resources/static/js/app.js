@@ -28,8 +28,8 @@ window.addEventListener('offline', checkOnlineStatus);
 let currentTourStep = 0;
 const tourSteps = [
     {
-        title: "Welcome to EcoTrace! 🌿",
-        text: "EcoTrace is an interactive platform built to help you track carbon emissions, adopt green habits, and challenge friends. Let's take a quick walk through each tab!",
+        title: "Welcome to BiomeTrck! 🌿",
+        text: "BiomeTrck is an interactive platform built to help you track carbon emissions, adopt green habits, and challenge friends. Let's take a quick walk through each tab!",
         view: "dashboard"
     },
     {
@@ -75,13 +75,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function checkAuthState() {
-    const token = localStorage.getItem('jwt_token');
-    const username = localStorage.getItem('username');
-    const email = localStorage.getItem('email');
+    const token = localStorage.getItem('biometrck_token');
+    const username = localStorage.getItem('biometrck_username');
+    const email = localStorage.getItem('biometrck_email');
 
     if (token) {
-        document.getElementById('authContainer').style.display = 'none';
-        document.getElementById('appContainer').style.display = 'grid';
+        const authContainer = document.getElementById('authContainer');
+        if (authContainer) authContainer.style.display = 'none';
+        
+        const appContainer = document.getElementById('appContainer');
+        if (appContainer) appContainer.style.display = 'grid';
+        
         document.getElementById('profileUsername').textContent = username || 'User';
         document.getElementById('profileEmail').textContent = email || '';
         
@@ -103,10 +107,7 @@ function checkAuthState() {
             setTimeout(startTour, 900);
         }
     } else {
-        document.getElementById('authContainer').style.display = 'flex';
-        document.getElementById('appContainer').style.display = 'none';
-        // Check if there's an invite in the URL even before login
-        checkInviteParams();
+        window.location.href = '/login';
     }
 }
 
@@ -209,16 +210,16 @@ async function handleAuthSubmit(e) {
             throw new Error(data.error || 'Authentication failed');
         }
 
-        localStorage.setItem('jwt_token', data.token);
-        localStorage.setItem('username', data.username);
-        localStorage.setItem('email', data.email);
+        localStorage.setItem('biometrck_token', data.token);
+        localStorage.setItem('biometrck_username', data.username);
+        localStorage.setItem('biometrck_email', data.email);
 
         // Mark T&C accepted (first time only)
         if (currentAuthMode === 'REGISTER') {
             localStorage.setItem('tc_accepted_' + data.username, 'true');
         }
         
-        showToast(currentAuthMode === 'REGISTER' ? 'Account created successfully! Welcome to EcoTrace.' : 'Logged in successfully!');
+        showToast(currentAuthMode === 'REGISTER' ? 'Account created successfully! Welcome to BiomeTrck.' : 'Logged in successfully!');
         
         document.getElementById('authUsername').value = '';
         document.getElementById('authPassword').value = '';
@@ -378,9 +379,9 @@ function handleLogout() {
         modal.style.display = 'none';
     });
     
-    localStorage.removeItem('jwt_token');
-    localStorage.removeItem('username');
-    localStorage.removeItem('email');
+    localStorage.removeItem('biometrck_token');
+    localStorage.removeItem('biometrck_username');
+    localStorage.removeItem('biometrck_email');
     
     showToast('Logged out successfully.');
     checkAuthState();
@@ -402,7 +403,7 @@ async function safeJson(response) {
 
 // Global fetch helper with auth header injection + retry + timeout
 async function authFetch(url, options = {}, _retryCount = 0) {
-    const token = localStorage.getItem('jwt_token');
+    const token = localStorage.getItem('biometrck_token');
     if (!token) {
         handleLogout();
         return;
@@ -1005,7 +1006,7 @@ async function fetchLeaderboard() {
                 }
                 
                 // Highlight current user
-                const currentUsername = localStorage.getItem('username');
+                const currentUsername = localStorage.getItem('biometrck_username');
                 const isSelf = entry.username === currentUsername;
                 
                 return `
@@ -1035,7 +1036,7 @@ function copyInviteLink() {
 
 function updateInviteLink() {
     const type = document.getElementById('challengeTypeSelect').value;
-    const username = localStorage.getItem('username') || 'user';
+    const username = localStorage.getItem('biometrck_username') || 'user';
     const input = document.getElementById('inviteLinkInput');
     if (input) {
         input.value = `${window.location.origin}${window.location.pathname}?ref=challenge&type=${type}&from=${encodeURIComponent(username)}`;
@@ -1193,7 +1194,7 @@ function endTour() {
     const banner = document.getElementById('tourBanner');
     if (banner) banner.style.display = 'none';
     
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem('biometrck_username');
     if (username) {
         localStorage.setItem('tour_completed_' + username, 'true');
     }
@@ -1229,7 +1230,7 @@ function updateEmissionHealthBar(kg) {
 }
 
 function loadWalkState() {
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem('biometrck_username');
     if (!username) return;
     const today = new Date().toISOString().split('T')[0];
     const savedDate = localStorage.getItem('walk_date_' + username);
@@ -1269,7 +1270,7 @@ function onWalkInputChange() {
     const savings = km > 0 ? (km * 0.18).toFixed(3) : '0.000';
     document.getElementById('walkSavingsDisplay').textContent = savings + ' kg';
     
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem('biometrck_username');
     const today = new Date().toISOString().split('T')[0];
     const isLogged = localStorage.getItem('walk_logged_' + username) === today;
     
@@ -1293,7 +1294,7 @@ async function logWalkingOffset() {
     const km = parseFloat(document.getElementById('walkKmInput').value);
     if (!km || km <= 0) { showToast('Please enter a valid distance.', true); return; }
     
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem('biometrck_username');
     const today = new Date().toISOString().split('T')[0];
     const isLogged = localStorage.getItem('walk_logged_' + username) === today;
     if (isLogged) {
@@ -1412,7 +1413,7 @@ function handleDeviceMotion(event) {
 }
 
 function simulateStep() {
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem('biometrck_username');
     const today = new Date().toISOString().split('T')[0];
     const isLogged = localStorage.getItem('walk_logged_' + username) === today;
     if (isLogged) return;
@@ -1425,7 +1426,7 @@ function updateStepDisplay() {
     const km = steps * 0.75 / 1000.0;
     
     // Save to localStorage
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem('biometrck_username');
     if (username) {
         localStorage.setItem('walk_km_' + username, km.toString());
     }
@@ -1579,8 +1580,8 @@ function toggleTheme() {
 // ACCOUNT SETTINGS LOGIC
 // ----------------------------------------------------
 function openAccountModal() {
-    const username = localStorage.getItem('username') || '';
-    const email = localStorage.getItem('email') || '';
+    const username = localStorage.getItem('biometrck_username') || '';
+    const email = localStorage.getItem('biometrck_email') || '';
     
     document.getElementById('accountUsername').value = username;
     document.getElementById('accountEmail').value = email;
@@ -1618,9 +1619,9 @@ async function handleUpdateAccount(e) {
         const data = await safeJson(response);
         
         // Save new token and details in localStorage
-        localStorage.setItem('jwt_token', data.token);
-        localStorage.setItem('username', data.username);
-        localStorage.setItem('email', data.email);
+        localStorage.setItem('biometrck_token', data.token);
+        localStorage.setItem('biometrck_username', data.username);
+        localStorage.setItem('biometrck_email', data.email);
         
         // Update values in sidebar
         document.getElementById('profileUsername').textContent = data.username;
@@ -1655,9 +1656,9 @@ async function handleDeleteAccount() {
         }
         
         // Clear auth details and sign out
-        localStorage.removeItem('jwt_token');
-        localStorage.removeItem('username');
-        localStorage.removeItem('email');
+        localStorage.removeItem('biometrck_token');
+        localStorage.removeItem('biometrck_username');
+        localStorage.removeItem('biometrck_email');
         
         closeAccountModal();
         showToast('Your account was deleted successfully.', false);

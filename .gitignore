@@ -34,3 +34,10 @@ logs/
 # === Environment ===
 .env
 *.env
+
+# === Temporary Deploy Logs ===
+eb-logs/
+logs.zip
+options.json
+secrets-policy.json
+secret-payload-temp.json
