@@ -1,16 +1,22 @@
 # BiomeTrck — Interactive Carbon Footprint Tracker 🌿
 
+**Live Deployment:** [http://biometrck-prod-env.eba-gdpgjaa9.us-east-1.elasticbeanstalk.com/](http://biometrck-prod-env.eba-gdpgjaa9.us-east-1.elasticbeanstalk.com/)
+
 BiomeTrck is a premium, state-of-the-art interactive carbon footprint tracker. It helps users trace daily emissions across transport, food, energy, and waste, commit to eco-challenges to earn carbon offsets, and participate in community leaderboards to challenge friends.
 
 ---
 
 ## 🏗️ Project Architecture
 
-BiomeTrck is built on a modern, robust, and lightweight technology stack:
+BiomeTrck is built on a modern, robust, and scalable technology stack:
 - **Backend**: Spring Boot 3.2.5 (Java 21)
-- **Database**: H2 Database (File-based storage for persistence across restarts)
+- **Database**: 
+  - *Local*: File-based H2 Database for local persistence and easy testing.
+  - *Production*: **AWS RDS PostgreSQL** instance for high-availability production storage.
 - **ORM & Data Access**: Spring Data JPA / Hibernate
 - **Security**: Spring Security (JWT Stateless Authentication)
+- **Credentials & Secrets**: **AWS Secrets Manager** for dynamic, runtime credential injection (no plaintext credentials committed).
+- **Hosting & Infrastructure**: **AWS Elastic Beanstalk** (Corretto 21 running on Amazon Linux 2023).
 - **Frontend**: Vanilla CSS, Semantic HTML5, and Modern Vanilla JavaScript (Single Page Application structure)
 - **Caching**: Spring Cache (Simple In-Memory provider)
 - **Rate Limiting**: Custom IP-based token-bucket filter (no external Redis/Memcached required)
@@ -24,7 +30,7 @@ carbon-footprint-tracker/
 ├── src/
 │   ├── main/
 │   │   ├── java/com/carbon/tracker/
-│   │   │   ├── config/             # Spring Security, JWT, Rate Limiting, Seeding
+│   │   │   ├── config/             # Spring Security, JWT, Rate Limiting, AWS Secrets Manager Initialization
 │   │   │   ├── controller/         # REST Controllers & Global Exceptions
 │   │   │   ├── dto/                # Request & Response Data Transfer Objects
 │   │   │   ├── model/              # JPA Entities (User, Action, ActivityLog, Goal, etc.)
@@ -32,8 +38,10 @@ carbon-footprint-tracker/
 │   │   │   └── service/            # Business Logic Services
 │   │   └── resources/
 │   │       ├── application.properties
+│   │       ├── application-prod.properties  # Production properties matching AWS config
 │   │       └── static/             # Static files (index.html, css/, js/, images/)
 │   └── test/                       # JUnit & Mockito Service tests
+├── deploy-aws.ps1                  # AWS Beanstalk/RDS/Secrets deployment script
 ├── pom.xml
 └── README.md
 ```
@@ -42,10 +50,9 @@ carbon-footprint-tracker/
 
 ## ⚙️ Configuration & Setup
 
-### Database
-We utilize an H2 File-based database to persist user data, goals, and logged activities across application restarts. The database is stored in `./data/carbondb.mv.db`.
-- **Auto-Server Mode Enabled**: Running Maven tests (`mvn test`) concurrently with the running server task is fully supported by configuring `AUTO_SERVER=true` in `application.properties`.
-- **Database Seeding**: The available eco-challenges catalog is seeded programmatically via `DatabaseSeeder` on application startup if the catalog is empty. This prevents primary key conflicts while ensuring files remain lightweight and self-initializing.
+### Database & Environment Profiles
+* **Local Development (Default Profile)**: Uses a local file-based H2 database stored at `./data/carbondb.mv.db`. Auto-Server mode is enabled (`AUTO_SERVER=true`) so tests and application can run concurrently.
+* **Production Deployment (`prod` Profile)**: Connects to the AWS RDS PostgreSQL database. The application dynamically initializes credentials at startup via `AwsSecretsInitializer.java`, pulling the secrets securely from AWS Secrets Manager.
 
 ### Caching Strategy
 To ensure high performance and low response times, the insights dashboard is cached per user (`@Cacheable(value = "dashboard", key = "#user.username")`).
@@ -62,7 +69,7 @@ To secure the application against brute-force and spam requests:
 
 ---
 
-## 🚀 Running the Application
+## 🚀 Running the Application Locally
 
 ### Prerequisites
 - JDK 21 or higher
@@ -75,8 +82,8 @@ mvn spring-boot:run
 ```
 The server will start on [http://localhost:8080](http://localhost:8080).
 
-### Accessing the H2 Console
-The in-memory/file console is accessible at [http://localhost:8080/h2-console](http://localhost:8080/h2-console).
+### Accessing the H2 Console (Local Only)
+The local database console is accessible at [http://localhost:8080/h2-console](http://localhost:8080/h2-console).
 - **JDBC URL**: `jdbc:h2:file:./data/carbondb`
 - **Username**: `sa`
 - **Password**: `password`
@@ -98,50 +105,25 @@ The tests verify:
 
 ---
 
-## 🚀 Deployment
+## 🚀 Cloud Deployment
 
-### Quick Deploy with Railway (Recommended for Hackathons)
+The application features a production-ready setup for deployment to Amazon Web Services (AWS) using the automated `deploy-aws.ps1` PowerShell script.
 
-1. Push this repo to GitHub
-2. Go to [railway.app](https://railway.app) → Sign in with GitHub
-3. **New Project** → **Deploy from GitHub repo** → Select this repo
-4. Railway auto-detects Maven and deploys. Set env vars:
-   - `PORT` = `8080`
-   - `JAVA_VERSION` = `21`
-5. Get your public URL instantly!
+### AWS Infrastructure Provisioned:
+1. **AWS Secrets Manager**: A secret named `biometrck/prod/credentials` containing database host, credentials, and JWT signing secrets.
+2. **AWS RDS (PostgreSQL)**: A `db.t3.micro` engine instances hosting production persistence data.
+3. **AWS Elastic Beanstalk**: A single-instance application environment running on Corretto 21.
+4. **AWS IAM Profile**: Secure policy mappings permitting the EC2 instances to retrieve credentials from AWS Secrets Manager at runtime.
 
-### Deploy with Docker
-
-A production-ready `Dockerfile` is included:
-
-```bash
-# Build the image
-docker build -t biometrck .
-
-# Run the container
-docker run -d -p 8080:8080 --name biometrck biometrck
-```
-
-### Deploy to Any Cloud VM
-
-```bash
-# 1. Build the JAR
+### Running the Deployment Script:
+To deploy the latest release to your AWS environment, run the packaging and deployment script:
+```powershell
+# 1. Package the JAR file
 mvn clean package -DskipTests
 
-# 2. Transfer to server
-scp target/carbon-footprint-tracker-1.0.0.jar user@server:/opt/biometrck/
-
-# 3. Run on server (requires JDK 21)
-java -jar carbon-footprint-tracker-1.0.0.jar
+# 2. Deploy to AWS
+.\deploy-aws.ps1
 ```
-
-### ⚠️ Production Checklist
-
-Before deploying to production, update `application.properties`:
-- [ ] Generate a new JWT secret: `openssl rand -hex 32`
-- [ ] Disable H2 Console: `spring.h2.console.enabled=false`
-- [ ] Change the database password
-- [ ] (Optional) Switch from H2 to PostgreSQL for persistent storage
 
 ---
 
@@ -182,5 +164,3 @@ BiomeTrck features a premium, modern UI with a responsive design. The entry poin
 | Login | Dashboard | Sidebar Open | Sidebar Closed |
 |---|---|---|---|
 | ![Mobile Login](docs/screenshots/flow_mobile_1_login.png) | ![Mobile Dashboard](docs/screenshots/flow_mobile_2_dashboard.png) | ![Sidebar Open](docs/screenshots/flow_mobile_3_sidebar_open.png) | ![Sidebar Closed](docs/screenshots/flow_mobile_4_sidebar_closed.png) |
-
-
