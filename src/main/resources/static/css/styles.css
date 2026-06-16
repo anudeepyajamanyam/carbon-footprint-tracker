@@ -673,6 +673,9 @@ body.light-theme select.form-control {
     display: none;
     animation: slideUp 0.3s ease-out;
 }
+.toast.show {
+    display: block !important;
+}
 .toast.error {
     border-left-color: var(--color-danger);
 }

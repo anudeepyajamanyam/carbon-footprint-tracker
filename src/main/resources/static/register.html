@@ -306,9 +306,21 @@
             window.location.href = '/login';
         }
 
-        // Check for invite params
-        function checkInviteParams() {
+        // Check for invite and query parameters
+        function checkQueryParams() {
             const urlParams = new URLSearchParams(window.location.search);
+            
+            // Pre-fill username if redirected from login
+            const usernameParam = urlParams.get('username');
+            if (usernameParam) {
+                const usernameInput = document.getElementById('authUsername');
+                if (usernameInput) {
+                    usernameInput.value = usernameParam;
+                    onAuthUsernameInput(usernameInput); // trigger validation check
+                }
+            }
+
+            // Check for invite params
             const ref = urlParams.get('ref');
             const fromUser = urlParams.get('from');
             const type = urlParams.get('type');
@@ -325,8 +337,8 @@
             }
         }
 
-        // Execute invite check on load
-        checkInviteParams();
+        // Execute query parameters check on load
+        checkQueryParams();
 
         async function handleRegisterSubmit(e) {
             e.preventDefault();

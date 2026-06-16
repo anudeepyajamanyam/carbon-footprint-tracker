@@ -180,7 +180,14 @@
                     window.location.href = '/dashboard';
                 }, 800);
             } catch (err) {
-                showToast(err.message, true);
+                if (err.message === 'User not registered') {
+                    showToast('Username not found. Redirecting to Sign Up...', true);
+                    setTimeout(() => {
+                        window.location.href = `/register?username=${encodeURIComponent(username)}`;
+                    }, 1500);
+                } else {
+                    showToast(err.message, true);
+                }
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Log In';
             }
