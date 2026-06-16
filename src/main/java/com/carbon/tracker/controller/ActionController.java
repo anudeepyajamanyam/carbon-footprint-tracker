@@ -16,8 +16,11 @@ import java.util.List;
 @RequestMapping("/api/actions")
 public class ActionController {
 
-    @Autowired
-    private ActionService actionService;
+    private final ActionService actionService;
+
+    public ActionController(ActionService actionService) {
+        this.actionService = actionService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Action>> getAllActions() {

@@ -14,8 +14,11 @@ import java.util.List;
 @RequestMapping("/api/social")
 public class SocialController {
 
-    @Autowired
-    private SocialService socialService;
+    private final SocialService socialService;
+
+    public SocialController(SocialService socialService) {
+        this.socialService = socialService;
+    }
 
     @GetMapping("/leaderboard")
     public ResponseEntity<List<LeaderboardEntry>> getLeaderboard() {

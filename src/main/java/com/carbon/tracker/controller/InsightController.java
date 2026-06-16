@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/insights")
 public class InsightController {
 
-    @Autowired
-    private InsightService insightService;
+    private final InsightService insightService;
+
+    public InsightController(InsightService insightService) {
+        this.insightService = insightService;
+    }
 
     @GetMapping("/dashboard")
     public ResponseEntity<DashboardResponse> getDashboard(@AuthenticationPrincipal User user) {

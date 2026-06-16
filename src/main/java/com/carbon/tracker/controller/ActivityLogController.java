@@ -17,8 +17,11 @@ import java.util.List;
 @RequestMapping("/api/logs")
 public class ActivityLogController {
 
-    @Autowired
-    private ActivityLogService activityLogService;
+    private final ActivityLogService activityLogService;
+
+    public ActivityLogController(ActivityLogService activityLogService) {
+        this.activityLogService = activityLogService;
+    }
 
     @PostMapping
     @CacheEvict(value = "dashboard", key = "#user.username")
