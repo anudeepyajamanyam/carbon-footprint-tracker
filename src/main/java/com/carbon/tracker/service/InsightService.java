@@ -19,17 +19,17 @@ import java.util.Map;
 @Service
 public class InsightService {
 
-    @Autowired
-    private ActivityLogRepository activityLogRepository;
+    private final ActivityLogRepository activityLogRepository;
+    private final ActivityLogService activityLogService;
+    private final GoalService goalService;
+    private final ActionService actionService;
 
-    @Autowired
-    private ActivityLogService activityLogService;
-
-    @Autowired
-    private GoalService goalService;
-
-    @Autowired
-    private ActionService actionService;
+    public InsightService(ActivityLogRepository activityLogRepository, ActivityLogService activityLogService, GoalService goalService, ActionService actionService) {
+        this.activityLogRepository = activityLogRepository;
+        this.activityLogService = activityLogService;
+        this.goalService = goalService;
+        this.actionService = actionService;
+    }
 
     @Cacheable(value = "dashboard", key = "#user.username")
     public DashboardResponse getDashboardData(User user) {

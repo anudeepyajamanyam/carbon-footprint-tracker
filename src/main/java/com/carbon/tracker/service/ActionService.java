@@ -18,14 +18,15 @@ import java.util.Optional;
 @Service
 public class ActionService {
 
-    @Autowired
-    private ActionRepository actionRepository;
+    private final ActionRepository actionRepository;
+    private final UserActionRepository userActionRepository;
+    private final ActivityLogRepository activityLogRepository;
 
-    @Autowired
-    private UserActionRepository userActionRepository;
-
-    @Autowired
-    private ActivityLogRepository activityLogRepository;
+    public ActionService(ActionRepository actionRepository, UserActionRepository userActionRepository, ActivityLogRepository activityLogRepository) {
+        this.actionRepository = actionRepository;
+        this.userActionRepository = userActionRepository;
+        this.activityLogRepository = activityLogRepository;
+    }
 
     public List<Action> getAllActions() {
         return actionRepository.findAll();

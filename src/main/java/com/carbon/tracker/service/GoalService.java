@@ -17,11 +17,13 @@ import java.util.Optional;
 @Service
 public class GoalService {
 
-    @Autowired
-    private GoalRepository goalRepository;
+    private final GoalRepository goalRepository;
+    private final ActivityLogRepository activityLogRepository;
 
-    @Autowired
-    private ActivityLogRepository activityLogRepository;
+    public GoalService(GoalRepository goalRepository, ActivityLogRepository activityLogRepository) {
+        this.goalRepository = goalRepository;
+        this.activityLogRepository = activityLogRepository;
+    }
 
     @Transactional
     public Goal setGoal(User user, GoalRequest request) {

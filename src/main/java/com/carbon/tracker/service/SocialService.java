@@ -13,11 +13,13 @@ import java.util.stream.Collectors;
 @Service
 public class SocialService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final ActionService actionService;
 
-    @Autowired
-    private ActionService actionService;
+    public SocialService(UserRepository userRepository, ActionService actionService) {
+        this.userRepository = userRepository;
+        this.actionService = actionService;
+    }
 
     public List<LeaderboardEntry> getLeaderboard() {
         List<User> users = userRepository.findAll();

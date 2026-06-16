@@ -17,23 +17,21 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final GoalRepository goalRepository;
+    private final UserActionRepository userActionRepository;
+    private final ActivityLogRepository activityLogRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider tokenProvider;
 
-    @Autowired
-    private GoalRepository goalRepository;
-
-    @Autowired
-    private UserActionRepository userActionRepository;
-
-    @Autowired
-    private ActivityLogRepository activityLogRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private JwtTokenProvider tokenProvider;
+    public UserService(UserRepository userRepository, GoalRepository goalRepository, UserActionRepository userActionRepository, ActivityLogRepository activityLogRepository, PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider) {
+        this.userRepository = userRepository;
+        this.goalRepository = goalRepository;
+        this.userActionRepository = userActionRepository;
+        this.activityLogRepository = activityLogRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.tokenProvider = tokenProvider;
+    }
 
     @Transactional
     public AuthResponse registerUser(AuthRequest request) {

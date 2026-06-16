@@ -16,8 +16,11 @@ import java.util.stream.Collectors;
 @Service
 public class ActivityLogService {
 
-    @Autowired
-    private ActivityLogRepository activityLogRepository;
+    private final ActivityLogRepository activityLogRepository;
+
+    public ActivityLogService(ActivityLogRepository activityLogRepository) {
+        this.activityLogRepository = activityLogRepository;
+    }
 
     public Double calculateEmissions(String category, String subType, Double amount) {
         if (amount == null || amount < 0) {
