@@ -131,13 +131,12 @@ mvn clean package -DskipTests
 
 BiomeTrck features a premium, modern UI with a responsive design. The entry point of the application is a public marketing landing page (`/`) featuring a dynamic, animated CO₂ counter and product highlights. Users access the application via separate standalone login (`/login`) and registration (`/register`) pages, which redirect authenticated sessions to the secured insights dashboard (`/dashboard`).
 
-### 🎬 Video Walkthroughs
-
-| Desktop Walkthrough | Mobile Walkthrough |
-|---|---|
-| [▶ Watch Desktop Demo (1280×800)](docs/videos/biometrck_desktop_walkthrough.webm) | [▶ Watch Mobile Demo (iPhone SE)](docs/videos/biometrck_mobile_walkthrough.webm) |
-
 ### Desktop Views
+
+#### Landing Page (Homepage)
+| Landing Page |
+|---|
+| <img src="./docs/screenshots/flow_0_landing.png?raw=true" alt="Landing Page" width="600" /> |
 
 #### Login & Registration
 | Login | Register | Register (Filled) | Terms & Conditions |
@@ -161,6 +160,6 @@ BiomeTrck features a premium, modern UI with a responsive design. The entry poin
 
 ### Mobile Views
 
-| Login | Dashboard | Sidebar Open | Sidebar Closed |
-|---|---|---|---|
-| <img src="./docs/screenshots/flow_mobile_1_login.png?raw=true" alt="Mobile Login" width="160" /> | <img src="./docs/screenshots/flow_mobile_2_dashboard.png?raw=true" alt="Mobile Dashboard" width="160" /> | <img src="./docs/screenshots/flow_mobile_3_sidebar_open.png?raw=true" alt="Sidebar Open" width="160" /> | <img src="./docs/screenshots/flow_mobile_4_sidebar_closed.png?raw=true" alt="Sidebar Closed" width="160" /> |
+| Landing Page | Login | Dashboard | Sidebar Open | Sidebar Closed |
+|---|---|---|---|---|
+| <img src="./docs/screenshots/flow_mobile_0_landing.png?raw=true" alt="Mobile Landing" width="160" /> | <img src="./docs/screenshots/flow_mobile_1_login.png?raw=true" alt="Mobile Login" width="160" /> | <img src="./docs/screenshots/flow_mobile_2_dashboard.png?raw=true" alt="Mobile Dashboard" width="160" /> | <img src="./docs/screenshots/flow_mobile_3_sidebar_open.png?raw=true" alt="Sidebar Open" width="160" /> | <img src="./docs/screenshots/flow_mobile_4_sidebar_closed.png?raw=true" alt="Sidebar Closed" width="160" /> |
