@@ -142,25 +142,25 @@ BiomeTrck features a premium, modern UI with a responsive design. The entry poin
 #### Login & Registration
 | Login | Register | Register (Filled) | Terms & Conditions |
 |---|---|---|---|
-| ![Login](docs/screenshots/flow_1_login.png) | ![Register](docs/screenshots/flow_2_register.png) | ![Register Filled](docs/screenshots/flow_2_register_filled.png) | ![T&C Modal](docs/screenshots/flow_2_tc_modal.png) |
+| <img src="./docs/screenshots/flow_1_login.png?raw=true" alt="Login" width="220" /> | <img src="./docs/screenshots/flow_2_register.png?raw=true" alt="Register" width="220" /> | <img src="./docs/screenshots/flow_2_register_filled.png?raw=true" alt="Register Filled" width="220" /> | <img src="./docs/screenshots/flow_2_tc_modal.png?raw=true" alt="T&C Modal" width="220" /> |
 
 #### Dashboard & Activity Logging
 | Empty Dashboard | Log Activity | Activity Filled | Dashboard with Data |
 |---|---|---|---|
-| ![Empty Dashboard](docs/screenshots/flow_3_dashboard_empty.png) | ![Log Activity](docs/screenshots/flow_4_log_activity_modal.png) | ![Activity Filled](docs/screenshots/flow_4_log_activity_filled.png) | ![Dashboard](docs/screenshots/flow_5_dashboard_with_activity.png) |
+| <img src="./docs/screenshots/flow_3_dashboard_empty.png?raw=true" alt="Empty Dashboard" width="220" /> | <img src="./docs/screenshots/flow_4_log_activity_modal.png?raw=true" alt="Log Activity" width="220" /> | <img src="./docs/screenshots/flow_4_log_activity_filled.png?raw=true" alt="Activity Filled" width="220" /> | <img src="./docs/screenshots/flow_5_dashboard_with_activity.png?raw=true" alt="Dashboard" width="220" /> |
 
 #### History, Challenges & Goals
 | Log History | Challenges | Challenges Committed | Carbon Budgets |
 |---|---|---|---|
-| ![History](docs/screenshots/flow_6_log_history.png) | ![Challenges](docs/screenshots/flow_7_challenges.png) | ![Committed](docs/screenshots/flow_8_challenges_committed.png) | ![Budgets](docs/screenshots/flow_9_budgets.png) |
+| <img src="./docs/screenshots/flow_6_log_history.png?raw=true" alt="History" width="220" /> | <img src="./docs/screenshots/flow_7_challenges.png?raw=true" alt="Challenges" width="220" /> | <img src="./docs/screenshots/flow_8_challenges_committed.png?raw=true" alt="Committed" width="220" /> | <img src="./docs/screenshots/flow_9_budgets.png?raw=true" alt="Budgets" width="220" /> |
 
 #### Budgets, Community & Settings
 | Budgets Set | Community Leaderboard | Profile Settings | Dark Mode |
 |---|---|---|---|
-| ![Budgets Set](docs/screenshots/flow_10_budgets_set.png) | ![Community](docs/screenshots/flow_11_community.png) | ![Settings](docs/screenshots/flow_12_profile_settings.png) | ![Dark Mode](docs/screenshots/flow_13_dark_mode_dashboard.png) |
+| <img src="./docs/screenshots/flow_10_budgets_set.png?raw=true" alt="Budgets Set" width="220" /> | <img src="./docs/screenshots/flow_11_community.png?raw=true" alt="Community" width="220" /> | <img src="./docs/screenshots/flow_12_profile_settings.png?raw=true" alt="Settings" width="220" /> | <img src="./docs/screenshots/flow_13_dark_mode_dashboard.png?raw=true" alt="Dark Mode" width="220" /> |
 
 ### Mobile Views
 
 | Login | Dashboard | Sidebar Open | Sidebar Closed |
 |---|---|---|---|
-| ![Mobile Login](docs/screenshots/flow_mobile_1_login.png) | ![Mobile Dashboard](docs/screenshots/flow_mobile_2_dashboard.png) | ![Sidebar Open](docs/screenshots/flow_mobile_3_sidebar_open.png) | ![Sidebar Closed](docs/screenshots/flow_mobile_4_sidebar_closed.png) |
+| <img src="./docs/screenshots/flow_mobile_1_login.png?raw=true" alt="Mobile Login" width="160" /> | <img src="./docs/screenshots/flow_mobile_2_dashboard.png?raw=true" alt="Mobile Dashboard" width="160" /> | <img src="./docs/screenshots/flow_mobile_3_sidebar_open.png?raw=true" alt="Sidebar Open" width="160" /> | <img src="./docs/screenshots/flow_mobile_4_sidebar_closed.png?raw=true" alt="Sidebar Closed" width="160" /> |
