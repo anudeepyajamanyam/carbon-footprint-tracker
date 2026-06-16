@@ -22,8 +22,11 @@ public class DatabaseSeeder implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(DatabaseSeeder.class);
 
-    @Autowired
-    private ActionRepository actionRepository;
+    private final ActionRepository actionRepository;
+
+    public DatabaseSeeder(ActionRepository actionRepository) {
+        this.actionRepository = actionRepository;
+    }
 
     @Override
     public void run(String... args) throws Exception {

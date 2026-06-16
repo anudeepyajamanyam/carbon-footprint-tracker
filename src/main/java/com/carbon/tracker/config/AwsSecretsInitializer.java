@@ -1,6 +1,8 @@
 package com.carbon.tracker.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -14,6 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AwsSecretsInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+
+    private static final Logger logger = LoggerFactory.getLogger(AwsSecretsInitializer.class);
 
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
@@ -55,9 +59,9 @@ public class AwsSecretsInitializer implements ApplicationContextInitializer<Conf
             }
 
             environment.getPropertySources().addFirst(new MapPropertySource("awsSecretsProperties", propertyMap));
-            System.out.println("Successfully loaded application credentials from AWS Secrets Manager: " + secretName);
+            logger.info("Successfully loaded application credentials from AWS Secrets Manager: {}", secretName);
         } catch (Exception e) {
-            System.err.println("Failed to load credentials from AWS Secrets Manager. falling back to environment variables: " + e.getMessage());
+            logger.error("Failed to load credentials from AWS Secrets Manager. falling back to environment variables: {}", e.getMessage());
         }
     }
 }
